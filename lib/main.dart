@@ -1,8 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:praktikum2/detail_page.dart';
-import 'package:praktikum2/home_page.dart';
+import 'package:praktikum2/Login.dart';
+import 'package:praktikum2/Navigation.dart';
+import 'package:praktikum2/firebase_options.dart';
+import 'package:praktikum2/register.dart';
+import 'package:praktikum2/splashscreen.dart';
 
-void main() {
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -11,9 +20,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: DetailPage(),
+        home: SplashScreen(),
+        routes: {
+          '/home': (context) => const Navigation(),
+          '/login':(context) =>  const login(),
+           '/register':(context) => const Register()
+        },
     );
   }
 }
